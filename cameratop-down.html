@@ -1,0 +1,152 @@
+<html>
+<body>
+  <div class="map1">
+    <div id="me">YOU</div>
+    <div id="knife">Knife</div>
+    <div class="dummy">DUMMY
+      <div id="hpbar">
+        <div id="gred"></div>
+      </div>
+    </div>
+    <div id="alertion"></div>
+  </div>
+</body>
+<style>
+  .map1  {
+    position: absolute;
+    border: 30px solid brown;
+    top: 0px;
+    left: 0px;
+    width: 94.9%;
+    height: 90.9%;
+    background-color: orange;
+  }
+  #me  {
+    height: 70px;
+    width: 50px;
+    background-color: blue;
+    position: relative;
+    top: 500px;
+    left: 550px;
+    color: white;
+    text-align: cencenter;
+  }
+  #knife  {
+    height: 0px;
+    width: 0px;
+    position: relative;
+    left: 10px;
+    border-top: 15px solid transparent;
+	  border-right: 70px solid grey;
+	  border-bottom: 15px solid transparent;
+  }
+  .dummy  {
+    height: 50px;
+    width: 40px;
+    background-color: red;
+    position: absolute;
+    left: 550px;
+  }
+  #hpbar  {
+    height: 20px;
+    width: 45px;
+    position: absolute;
+    left: -3px;
+    top: -30px;
+    border: 3px solid black;
+    background-color: red;
+  }
+  #gred  {
+    height: 20px;
+    width: 45px;
+    position: absolute;
+    left: -3px;
+    top: -5px;
+    border: 3px solid black;
+    background-color: green;
+  }
+  #alertion  {
+    height: 100px;
+    width: 150px;
+    position: absolute;
+    top: 500px;
+    left: 10px;
+    border: 5px solid grey;
+    background-color: white;
+  }
+</style>
+<script>
+  var ale = "Move with arrows";
+  var alev = "1";
+  var weapon = "none";
+  if (alev=="1")  {
+    document.getElementById("alertion").innerHTML = ale;
+  }
+  if (alev=="2")  {
+    document.getElementById("alertion").innerHTML = ale;
+  }
+  
+  document.addEventListener('keydown',keyDown)
+  function keyDown()  {
+    //Attcking dummy
+    var top = parseInt(window.getComputedStyle(me,null).getPropertyValue('top'));
+    var left = parseInt(window.getComputedStyle(me).getPropertyValue('left'));
+    if (event.keyCode == 32 && weapon!="none" && top<110 && left<650 && left>400){
+      var hp = parseInt(window.getComputedStyle(gred).getPropertyValue('width'));
+      gred.style.width = hp - 3 + "px";
+      }
+      
+    //picking weapon helper
+    if (event.keyCode == 37 || event.keyCode == 38 || event.keyCode == 39 || event.keyCode == 40)  {
+      if (alev=="1") {
+        alev = "2";
+        ale = "Press 'P' to pick weapons";
+        document.getElementById("alertion").innerHTML = ale;
+      }
+    }
+    if (event.keyCode == 37)  {
+      var left = parseInt(getComputedStyle(me).getPropertyValue('left'));
+      me.style.left = left - 30 + "px";
+      if (weapon=="knife")  {
+        var leftki = parseInt(getComputedStyle(knife).getPropertyValue('left'));
+        knife.style.left = leftki - 30 + "px";
+      }
+    }
+    if (event.keyCode == 39)  {
+      var left = parseInt(getComputedStyle(me).getPropertyValue('left'));
+      me.style.left = left + 30 + "px";
+      if (weapon=="knife")  {
+        var leftki = parseInt(getComputedStyle(knife).getPropertyValue('left'));
+        knife.style.left = leftki + 30 + "px";
+      }
+    }
+    if (event.keyCode == 38)  {
+      var top = parseInt(getComputedStyle(me).getPropertyValue('top'));
+      me.style.top = top - 30 + "px";
+      if (weapon=="knife")  {
+        var topki = parseInt(getComputedStyle(knife).getPropertyValue('top'));
+        knife.style.top = topki - 30 + "px";
+      }
+    }
+    if (event.keyCode == 40)  {
+      var top = parseInt(getComputedStyle(me).getPropertyValue('top'));
+      me.style.top = top + 30 + "px";
+      if (weapon=="knife"){
+        var topki = parseInt(getComputedStyle(knife).getPropertyValue('top'));
+          knife.style.top = topki + 30 + "px";
+      }
+    }
+    
+    //picking knife
+    var left = parseInt(getComputedStyle(me,null).getPropertyValue('left'));
+    if (event.keyCode == 80 && top<100 && left<100)  {
+      weapon = "knife";
+      alert("You picked up a knife")
+      alev = 3;
+      ale = "Use the spacebar to attack enemies.";
+      document.getElementById('alertion').innerHTML = ale;
+      var top = parseInt(getComputedStyle(me,null).getPropertyValue('top'));
+    }
+  }
+</script>
+</html>
